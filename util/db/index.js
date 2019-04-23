@@ -11,11 +11,8 @@ exports.getConnect = function(){
 exports.connect = function(db_name = null) {
     console.log("Selected DB : ", process.env.DATABASE_URL," ", ((db_name == null) ? process.env.DATABASE : db_name));
     var option = (process.env.NODE_ENV != "localhost") ?
-    {
-        ssl: true,
-        replicaSet: 'Scon-Test-DB-shard-0',
-        authSource: 'admin',
-        retryWrites: true
+    { 
+        useNewUrlParser: true 
     } : 
     {
         keepAlive: 300000,
@@ -23,7 +20,8 @@ exports.connect = function(db_name = null) {
     };
 
     return new Promise((resolve,reject)=>{    
-        mongoose.connect(`mongodb://${process.env.DATABASE_USER}:${process.env.DATABASE_PASS}@${process.env.DATABASE_URL}/${((db_name == null) ? process.env.DATABASE : db_name)}`, option,(err)=>{
+        //mongodb+srv://api_user:<password>@cluster0-ibjx7.mongodb.net/test?retryWrites=true
+        mongoose.connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASS}@${process.env.DATABASE_URL}/${((db_name == null) ? process.env.DATABASE : db_name)}`, option,(err)=>{
             if(err){
                 console.error(err);
                 reject(err)
