@@ -1,6 +1,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+const CategoryTyps = {
+    VALUE : 0,
+    MOMENTURM : 1,
+    QUALITY : 2,
+    PRICE: 3,
+    SENTIMENT : 4
+}
+
 var FactorSchema = new Schema({
     // loginId : String,
     index: { type: Number, required: true, unique: true },
@@ -19,5 +27,6 @@ var FactorSchema = new Schema({
 });
 
 module.exports = {
-    factor: mongoose.model('Factor', FactorSchema)
+    factor: mongoose.model('Factor', FactorSchema),
+    CategoryTyps : CategoryTyps
 }
