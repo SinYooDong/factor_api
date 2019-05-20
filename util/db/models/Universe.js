@@ -2,8 +2,9 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
 var UniversSchema = new Schema({
-    index: { type: Number, required: true, unique: true },
-    text: { type: String, default: null }
+    symbol: { type: String, required: true, unique: true },
+    company_name: { type: String, required: true },
+    kind : { type: String, required: true }
 });
 
 module.exports = {
