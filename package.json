@@ -8,9 +8,10 @@
   "scripts": {
     "dev": "nodemon --exec babel-node index.js",
     "start": "babel-node index.js",
-    "db" : "nodemon --exec babel-node ./data/initData.js"
+    "db": "nodemon --exec babel-node ./data/otherData.js"
   },
   "dependencies": {
+    "async": "^3.0.0",
     "babel-cli": "^6.26.0",
     "boom": "^7.3.0",
     "dotenv": "^7.0.0",

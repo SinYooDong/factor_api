@@ -5,11 +5,12 @@ moment.tz(default_tz);
 import { UniversSchema } from '../util/db/models/Universe'
 import { UniversDataSchema } from '../util/db/models/UniverseData'
 const dbdrive = require("../util/db");
+var async = require('async');
 
 const start = ()=>{
-
+    let zz = 1;
     async function readFile() {
-        let workbook = XLSX.readFile('./data/test.xlsx',{cellDates:true, cellNF:false, cellText:false});
+        let workbook = XLSX.readFile('./data/시가총액.xlsx',{cellDates:true, cellNF:false, cellText:false});
         var sheet_name_list = workbook.SheetNames;
         let db = [];
         await asyncForEach(sheet_name_list,async(y)=>{
@@ -116,12 +117,7 @@ const start = ()=>{
         }
     }
 
-    return (async function () {
-        
-        
-        let data = await readFile();
-        
-        
+    async function loopFun(data) {
         await asyncForEach(data,async(item,index)=>{
             console.log("생성 : ",item.symbol);
             
@@ -132,9 +128,107 @@ const start = ()=>{
             await asyncForEach(item.data,async(unidata,index2)=>{
                 await createData(unidata.time,item.symbol,uni._id,unidata.market_cap);
             })
-
+            console.log(`${zz}개 완료`);
+            zz++;
             console.log("생성완료 : ",item.symbol);
         })
+    }
+
+    return (async function () {
+        
+        
+        let data = await readFile();
+        
+
+        let data1 = data.splice(0,200);
+        let data2 = data.splice(0,200);
+        let data3 = data.splice(0,200);
+        let data4 = data.splice(0,200);
+        let data5 = data.splice(0,200);
+        let data6 = data.splice(0,200);
+        let data7 = data.splice(0,200);
+        let data8 = data.splice(0,200);
+        let data9 = data.splice(0,200);
+        let data10 = data.splice(0,200);
+        let data11 = data.splice(0,200);
+        let data12 = data.splice(0,200);
+        let data13 = data.splice(0,200);
+        let data14 = data.splice(0,200);
+        let data15 = data.splice(0,200);
+
+        await async.parallel([
+            async function (callback) {
+                await loopFun(data1);
+                callback(null,"one")
+            },
+            async function (callback) {
+                await loopFun(data2);
+                callback(null,"two")
+            },
+            async function (callback) {
+                await loopFun(data3);
+                callback(null,"three")
+            },
+
+            async function (callback) {
+                await loopFun(data4);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data5);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data6);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data7);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data8);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data9);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data10);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data11);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data12);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data13);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data14);
+                callback(null,"three")
+            },
+            async function (callback) {
+                await loopFun(data15);
+                callback(null,"three")
+            },
+
+
+
+            async function (callback) {
+                await loopFun(data);
+                callback(null,"last")
+            }
+        ], function (err, results) {
+            console.log("end!!!");
+        });
+
 
         return "";
     }()).then((result => {
@@ -147,8 +241,8 @@ const start = ()=>{
     })
 };
 
-dbdrive.connect().then(()=>{
-    start();
+dbdrive.connect().then(async ()=>{
+    await start();
 }).catch(err=>{
     console.error(err);
     throw err;
