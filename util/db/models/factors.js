@@ -9,6 +9,8 @@ const CategoryTyps = {
     SENTIMENT : 4
 }
 
+//계산식을 다룰려고 하였으나, 계산식이 필요가없어 등록된 팩터 가지수 용도로만 사용중.
+
 var FactorSchema = new Schema({
     // loginId : String,
     index: { type: Number, required: true, unique: true },
